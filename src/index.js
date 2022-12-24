@@ -53,9 +53,29 @@ function showWeather(response) {
   ).innerHTML = `Humidity: ${response.data.main.humidity}%`;
   document.querySelector("#wind").innerHTML = `Wind: ${Math.round(
     response.data.wind.speed
-  )} m/s`;
+  )} km/s`;
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
+
+  function convertToFahrenheit(event) {
+    event.preventDefault();
+    let fahrTemp = Math.round((celsiusTemp * 9) / 5 + 32);
+    let temperatureElement = document.querySelector("#temperature");
+    temperatureElement.innerHTML = fahrTemp;
+  }
+
+  function convertToCelsius(event) {
+    event.preventDefault();
+    let celsiusTemp = Math.round(response.data.main.temp);
+    let temperatureElement = document.querySelector("#temperature");
+    temperatureElement.innerHTML = celsiusTemp;
+  }
+  let celsiusTemp = Math.round(response.data.main.temp);
+  let fahrenheitLink = document.querySelector("#fahrenheit-link");
+  fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+  let celsiusLink = document.querySelector("#celsius-link");
+  celsiusLink.addEventListener("click", convertToCelsius);
 }
 
 function showPosition(position) {
@@ -72,21 +92,3 @@ function getCurrentLocation(event) {
 
 let currentLocationButton = document.querySelector("#location-button");
 currentLocationButton.addEventListener("click", getCurrentLocation);
-
-function convertToFahrenheit(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = 66;
-}
-
-function convertToCelsius(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = 19;
-}
-
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", convertToFahrenheit);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", convertToCelsius);
