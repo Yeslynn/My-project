@@ -53,3 +53,8 @@ li {
 .search-form {
   margin: 20px auto;
 }
+footer {
+  padding: 5px;
+  margin: 20px auto;
+  max-width: 600px;
+}
